@@ -1,0 +1,22 @@
+language: python
+python:
+  - "3.6"
+
+before_install:
+  - sed '/django-heroku==/d' requirements.txt > requirements-travis.txt
+install:
+  - pip install -r requirements-travis.txt
+before_script:
+  - python manage.py migrate
+script:
+  - python manage.py test
+
+deploy:
+  provider: heroku
+  app: bogranar-1337
+  on:
+    repo: altair050/Lab1_RSOI
+  api_key:
+    secure: "345d231f-5d56-4a0f-9bfa-e57a60cb8693"
+notifications:
+  email: false
